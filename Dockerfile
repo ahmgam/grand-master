@@ -23,7 +23,7 @@ RUN . /etc/os-release \
     && echo "deb http://packages.osrfoundation.org/gazebo/$ID-stable `lsb_release -sc` main" > /etc/apt/sources.list.d/gazebo-latest.list
 
 #install node legacy
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs nodejs-legacy
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - apt-get install -y nodejs nodejs-legacy
 
 # install gazebo packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
