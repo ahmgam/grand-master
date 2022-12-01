@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
     lsb-release \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # setup keys
