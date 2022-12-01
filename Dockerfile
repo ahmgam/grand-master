@@ -1,7 +1,14 @@
-FROM ubuntu:latest
+FROM ubuntu:bionic
+
+# setup timezone
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
 # install packages
-RUN apt-get update && apt-get install -q -y \
+RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
     lsb-release \
@@ -15,17 +22,19 @@ RUN . /etc/os-release \
     && echo "deb http://packages.osrfoundation.org/gazebo/$ID-stable `lsb_release -sc` main" > /etc/apt/sources.list.d/gazebo-latest.list
 
 # install gazebo packages
-RUN apt-get update && apt-get install -q -y \
-    gazebo8=8.6.0-1* \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gazebo9=9.19.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN apt-get update && apt-get install -q -y \
-    libgazebo8-dev=8.6.0-1* \
+# install gazebo packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgazebo9-dev=9.19.0-1* \
     && rm -rf /var/lib/apt/lists/*
+
 
 # install packages
-RUN apt-get update && apt-get install -q -y \
+RUN apt-get update && apt-get install -q -y --no-install-recommends \
     build-essential \
     cmake \
     imagemagick \
@@ -43,8 +52,8 @@ RUN apt-get update && apt-get install -q -y \
     && rm -rf /var/lib/apt/lists/*
 
 # install gazebo packages
-RUN apt-get update && apt-get install -q -y \
-    libgazebo8-dev=8.6.0-1* \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgazebo9-dev=9.19.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 # clone gzweb
@@ -55,8 +64,7 @@ WORKDIR $GZWEB_WS
 # build gzweb
 RUN hg up default \
     && xvfb-run -s "-screen 0 1280x1024x24" ./deploy.sh -m -t
-
-
+    
 RUN apt-get update 
 
 # install packages
