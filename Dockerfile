@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libtinyxml-dev \
     mercurial \
     nodejs \
-    nodejs-legacy \
+    #nodejs-legacy \
     npm \
     pkg-config \
     psmisc \
