@@ -7,7 +7,7 @@ RUN echo 'Etc/UTC' > /etc/timezone && \
     apt-get install -q -y --no-install-recommends \
     tzdata  \
     nodejs \
-    nodejs-legacy \
+    libnode64 \
     && rm -rf /var/lib/apt/lists/*
 
 # install packages
