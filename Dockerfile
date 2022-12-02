@@ -5,6 +5,8 @@ RUN echo 'Etc/UTC' > /etc/timezone && \
     ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
     apt-get update && \
     apt-get install -q -y --no-install-recommends tzdata && \
+    nodejs \
+    nodejs-legacy \
     rm -rf /var/lib/apt/lists/*
 
 # install packages
@@ -34,8 +36,6 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     libjansson-dev \
     libtinyxml-dev \
     mercurial \
-    nodejs \
-    nodejs-legacy \
     npm \
     pkg-config \
     psmisc \
