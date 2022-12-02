@@ -4,10 +4,11 @@ FROM ubuntu:focal
 RUN echo 'Etc/UTC' > /etc/timezone && \
     ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
     apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
+    apt-get install -q -y --no-install-recommends \
+    tzdata  \
     nodejs \
     nodejs-legacy \
-    rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # install packages
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
