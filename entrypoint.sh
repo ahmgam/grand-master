@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-source /usr/local/nvm/nvm.sh
 source /usr/share/gazebo/setup.sh
 source /opt/ros/noetic/setup.bash
 cd /gzweb
