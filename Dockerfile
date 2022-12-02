@@ -55,8 +55,9 @@ RUN git clone https://github.com/osrf/gzweb.git $GZWEB_WS
 WORKDIR $GZWEB_WS
 
 # build gzweb
-RUN hg up default \
-    && xvfb-run -s "-screen 0 1280x1024x24" ./deploy.sh -m -t
+RUN git checkout gzweb_1.4
+
+RUN npm run deploy --- -m
 
 
 #install ros
