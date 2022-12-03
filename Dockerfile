@@ -100,9 +100,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ENV TURTLEBOT3_MODEL=waffle               
 
-RUN mkdir -p robot_ws/src
+RUN mkdir -p /root/robot_ws/src
 
-RUN git clone https://github.com/ahmgam/multirobot_sim.git robot_ws/src/multirobot_sim
+RUN apt-get update && apt-get install -y --no-install-recommends ros-noetic-map-server
+
+RUN git clone https://github.com/ahmgam/multirobot_sim.git /root/robot_ws/src/multirobot_sim
+
+RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd /root/robot_ws; catkin_make'
+
 
 EXPOSE 8080
 EXPOSE 7681
