@@ -98,16 +98,39 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-desktop-full=1.5.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
+# install packages dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-noetic-dynamixel-sdk \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    protobuf-compiler libprotobuf-dev \
+    ros-noetic-map-server \
+    && rm -rf /var/lib/apt/lists/*
+
+
 ENV TURTLEBOT3_MODEL=waffle               
 
 RUN mkdir -p /root/robot_ws/src
 
-RUN apt-get update && apt-get install -y --no-install-recommends ros-noetic-map-server
+RUN git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3.git /root/robot_ws/src/turtlebot3 
+
+RUN git clone -b noetic-devel  https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git /root/robot_ws/src/turtlebot3_msgs
+
+RUN git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git /root/robot_ws/src/turtlebot3_simulations
+
+RUN git clone  https://github.com/ethz-asl/rotors_simulator.git /root/robot_ws/src/rotor_simulations
+
+RUN git clone  https://github.com/OctoMap/octomap_msgs.git /root/robot_ws/src/octomap_msgs
+
+RUN git clone  https://github.com/ethz-asl/mav_comm.git /root/robot_ws/src/mav_comm
+
+RUN git clone  https://github.com/OctoMap/octomap_ros.git /root/robot_ws/src/octomap_ros
 
 RUN git clone https://github.com/ahmgam/multirobot_sim.git /root/robot_ws/src/multirobot_sim
 
 RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd /root/robot_ws; catkin_make'
 
+RUN cp -R /usr/share/gazebo-11/media /root/gzweb/http/client/assets/
 
 EXPOSE 8080
 EXPOSE 7681
